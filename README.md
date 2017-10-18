@@ -1,14 +1,14 @@
-# Arduino Core for SAMD21 CPU
+# Open Bionics Chestnut Core for SAMD21 CPU
 
-This repository contains the source code and configuration files of the Arduino Core
-for Atmel's SAMD21 processor (used on the Arduino/Genuino Zero, MKR1000 and MKRZero boards).
+This repository contains the source code and configuration files of the modified Arduino Core
+for Atmel's SAMD21 processor (used on the Open Bionics Chestnut board).
 
 ## Installation on Arduino IDE
 
 This core is available as a package in the Arduino IDE cores manager.
 Just open the "Boards Manager" and install the package called:
 
-"Arduino SAMD Boards (32-bit ARM Cortex-M0+)"
+"Open Bionics - Developer Boards"
 
 ## Support
 
@@ -20,7 +20,7 @@ http://forum.arduino.cc/index.php?board=98.0
 
 If you find a bug you can submit an issue here on github:
 
-https://github.com/arduino/ArduinoCore-samd/issues
+https://github.com/Open-Bionics/OB_arduino_core_samd/issues
 
 Before posting a new issue, please check if the same problem has been already reported by someone else
 to avoid duplicates.

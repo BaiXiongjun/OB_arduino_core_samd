@@ -1,13 +1,38 @@
-SAMD CORE 1.6.10
+openbionics-samd 1.2.4
 
-* The linker script must define `__text_start__` symbol at the beginning of .text section.
-  This symbol is used to automatically determine the bootloader size.
+* added '#define Serial SerialUSB' to allow external libraries to use SerialUSB by default - Chestnut, OB1_HC & OB1_EMG
+* changed flash boards.txt 'board_name.build.ldscript=linker_scripts/gcc/flash_without_bootloader.ld' - OB1_HC & OB1_EMG
+* changed I2C pins to correct port (from PORTB to PORTA) - OB1_EMG
+* removed unused variant folders from variants folder
+* removed unused bootloaders from bootloaders folder
 
-SAMD CORE 1.6.6
+openbionics-samd 1.2.3
 
-* `digitalPinToInterrupt` #define moved to Arduino.h, variant.h must no longer define it.
+* added PWM functionality to LED on D4 (PB10) - OB1 EMG
+* changed PWM timer on PA19 to alternate timer (PA19) - OB1 HC
 
-SAMD CORE 1.6.3
+openbionics-samd 1.2.2
 
-* Timer for pin PWM selected based on value of `PIN_ATTR_TIMER_ALT` or `PIN_ATTR_TIMER`.
-  Prior to this "pin type" (ulPinType) was used.
+* fixed all compilation errors
+* removed Serial1() init functions
+* added placeholder USB_DP_PIN... for OB1_HC
+
+openbionics-samd 1.2.1
+
+* fixed board IDE's from OB1 to OB1_HC & OB1_EMG
+* fixed build.board=XXXX to correct names
+
+openbionics-samd 1.2.0
+
+* added OB1 EMG
+* changed OB1 board to OB1 Hand Controller
+* fixed Chestnut
+
+openbionics-samd 1.1.0
+
+* added OB1 board
+* changed Chesnut/Chesntut+ to Chestnut
+
+openbionics-samd 1.0.0
+
+* added Chestnut/Chestnut+ PCB

@@ -187,6 +187,10 @@ uint32_t analogRead(uint32_t pin)
 // hardware support.  These are defined in the appropriate
 // pins_*.c file.  For the rest of the pins, we default
 // to digital output.
+//
+//	OllyEdit - if PWM timer was already enabled, the other pins that share the same
+// timer are not initialised correctly
+//
 void analogWrite(uint32_t pin, uint32_t value)
 {
   PinDescription pinDesc = g_APinDescription[pin];
@@ -217,21 +221,29 @@ void analogWrite(uint32_t pin, uint32_t value)
     uint32_t tcNum = GetTCNumber(pinDesc.ulPWMChannel);
     uint8_t tcChannel = GetTCChannelNumber(pinDesc.ulPWMChannel);
     static bool tcEnabled[TCC_INST_NUM+TC_INST_NUM];
+	static bool pinPeripheralEnabled[PINS_COUNT];		
 
-    if (attr & PIN_ATTR_TIMER) {
-      #if !(ARDUINO_SAMD_VARIANT_COMPLIANCE >= 10603)
-      // Compatibility for cores based on SAMD core <=1.6.2
-      if (pinDesc.ulPinType == PIO_TIMER_ALT) {
-        pinPeripheral(pin, PIO_TIMER_ALT);
-      } else
-      #endif
-      {
-        pinPeripheral(pin, PIO_TIMER);
-      }
-    } else {
-      // We suppose that attr has PIN_ATTR_TIMER_ALT bit set...
-      pinPeripheral(pin, PIO_TIMER_ALT);
-    }
+		if (!pinPeripheralEnabled[pin]) 
+		{				
+			pinPeripheralEnabled[pin] = true;
+
+	    if (attr & PIN_ATTR_TIMER) {
+	      #if !(ARDUINO_SAMD_VARIANT_COMPLIANCE >= 10603)
+	      // Compatibility for cores based on SAMD core <=1.6.2
+	      if (pinDesc.ulPinType == PIO_TIMER_ALT) {
+	        pinPeripheral(pin, PIO_TIMER_ALT);
+	
+	      } else
+	      #endif
+	      {
+	        pinPeripheral(pin, PIO_TIMER);
+	      }
+	
+	    } else {
+	      // We suppose that attr has PIN_ATTR_TIMER_ALT bit set...
+	      pinPeripheral(pin, PIO_TIMER_ALT);
+	    }
+	}
 
     if (!tcEnabled[tcNum]) {
       tcEnabled[tcNum] = true;
