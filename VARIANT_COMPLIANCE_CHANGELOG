@@ -1,3 +1,16 @@
+openbionics-samd-dev 1.2.10
+* changed memory sizes in variants\chestnut\linker_scripts\gcc\flash_with_bootloader.ld
+* changed analogWrite() to map to 8 bit timer instead of 16 bit
+
+openbionics-samd-dev 1.2.9
+* reverted all changes to 1.2.4
+
+
+
+
+openbionics-samd-dev 1.2.5
+* updated from ArduinoCore Samd
+
 openbionics-samd 1.2.4
 
 * added '#define Serial SerialUSB' to allow external libraries to use SerialUSB by default - Chestnut, OB1_HC & OB1_EMG

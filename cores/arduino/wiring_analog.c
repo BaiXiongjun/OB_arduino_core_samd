@@ -216,7 +216,7 @@ void analogWrite(uint32_t pin, uint32_t value)
 
   if ((attr & PIN_ATTR_PWM) == PIN_ATTR_PWM)
   {
-    value = mapResolution(value, _writeResolution, 16);
+    value = mapResolution(value, _writeResolution, 8);		// ollyEdit (16 -> 8)
 
     uint32_t tcNum = GetTCNumber(pinDesc.ulPWMChannel);
     uint8_t tcChannel = GetTCChannelNumber(pinDesc.ulPWMChannel);
