@@ -1,3 +1,8 @@
+openbionics-samd 1.2.11
+* changed PID & VID to Open Bionics' in boards.txt & USBCore.cpp
+* added SerialJack & SerialPins to Chestnut variant
+* added Serial (programming pads) & SerialWrist to OB1 hand controller
+
 openbionics-samd-dev 1.2.10
 * changed memory sizes in variants\chestnut\linker_scripts\gcc\flash_with_bootloader.ld
 * changed analogWrite() to map to 8 bit timer instead of 16 bit

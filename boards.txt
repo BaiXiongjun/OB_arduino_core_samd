@@ -17,10 +17,9 @@
 # Open Bionics Chestnut
 # ---------------------------------------
 ob_chestnut.name=Chestnut
-ob_chestnut.vid.0=0x2341
-ob_chestnut.pid.0=0x804d
-ob_chestnut.vid.1=0x2341
-ob_chestnut.pid.1=0x004d
+ob_chestnut.vid.0=0x1209
+ob_chestnut.pid.0=0xAA0B
+
 
 ob_chestnut.upload.tool=bossac
 ob_chestnut.upload.protocol=sam-ba
@@ -39,8 +38,8 @@ ob_chestnut.build.ldscript=linker_scripts/gcc/flash_with_bootloader.ld
 ob_chestnut.build.openocdscript=openocd_scripts/arduino_zero.cfg
 ob_chestnut.build.variant=chestnut
 ob_chestnut.build.variant_system_lib=
-ob_chestnut.build.vid=0x2341
-ob_chestnut.build.pid=0x804d
+ob_chestnut.build.vid=0x1209
+ob_chestnut.build.pid=0xAA0B
 ob_chestnut.bootloader.tool=openocd
 ob_chestnut.bootloader.file=zero/samd21_sam_ba.bin
 
@@ -48,10 +47,9 @@ ob_chestnut.bootloader.file=zero/samd21_sam_ba.bin
 # Open Bionics OB1 Hand Controller
 # ---------------------------------------
 OB1_HC.name=OB1 Hand Controller
-OB1_HC.vid.0=0x2341
-OB1_HC.pid.0=0x804d
-OB1_HC.vid.1=0x2341
-OB1_HC.pid.1=0x004d
+OB1_HC.vid.0=0x1209
+OB1_HC.pid.0=0xAA0B
+
 
 OB1_HC.upload.tool=bossac
 OB1_HC.upload.protocol=sam-ba
@@ -70,18 +68,17 @@ OB1_HC.build.ldscript=linker_scripts/gcc/flash_without_bootloader.ld
 OB1_HC.build.openocdscript=openocd_scripts/arduino_zero.cfg
 OB1_HC.build.variant=ob1_hand_controller
 OB1_HC.build.variant_system_lib=
-OB1_HC.build.vid=0x2341
-OB1_HC.build.pid=0x804d
+OB1_HC.build.vid=0x1209
+OB1_HC.build.pid=0xAA0B
 OB1_HC.bootloader.tool=openocd
 OB1_HC.bootloader.file=zero/samd21_sam_ba.bin
 
 # Open Bionics OB1 EMG
 # ---------------------------------------
 OB1_EMG.name=OB1 EMG
-OB1_EMG.vid.0=0x2341
-OB1_EMG.pid.0=0x804d
-OB1_EMG.vid.1=0x2341
-OB1_EMG.pid.1=0x004d
+OB1_EMG.vid.0=0x1209
+OB1_EMG.pid.0=0xAA0B
+
 
 OB1_EMG.upload.tool=bossac
 OB1_EMG.upload.protocol=sam-ba
@@ -100,8 +97,8 @@ OB1_EMG.build.ldscript=linker_scripts/gcc/flash_without_bootloader.ld
 OB1_EMG.build.openocdscript=openocd_scripts/arduino_zero.cfg
 OB1_EMG.build.variant=ob1_emg
 OB1_EMG.build.variant_system_lib=
-OB1_EMG.build.vid=0x2341
-OB1_EMG.build.pid=0x804d
+OB1_EMG.build.vid=0x1209
+OB1_EMG.build.pid=0xAA0B
 OB1_EMG.bootloader.tool=openocd
 OB1_EMG.bootloader.file=zero/samd21_sam_ba.bin
 

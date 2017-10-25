@@ -55,11 +55,11 @@ extern "C"
  *----------------------------------------------------------------------------*/
 
 // Number of pins defined in PinDescription array
-#define PINS_COUNT           (21u)
-#define NUM_DIGITAL_PINS     (11u)
+#define PINS_COUNT           (24u)
+#define NUM_DIGITAL_PINS     (15u)
 #define NUM_ANALOG_INPUTS    (10u)
 #define NUM_ANALOG_OUTPUTS   (0u)
-#define analogInputToDigitalPin(p)  ((p < 6u) ? (p) + 14u : -1)
+
 
 #define digitalPinToPort(P)        ( &(PORT->Group[g_APinDescription[P].ulPort]) )
 #define digitalPinToBitMask(P)     ( 1 << g_APinDescription[P].ulPin )
@@ -81,16 +81,18 @@ extern "C"
 /*
  * Analogue pins
  */
-#define PIN_A0               (11ul)
-#define PIN_A1               (12ul)
-#define PIN_A2               (13ul)
-#define PIN_A3               (14ul)
-#define PIN_A4               (15ul)
-#define PIN_A5               (16ul)
-#define PIN_A6               (17ul)	
-#define PIN_A7               (18ul)
-#define PIN_A8               (19ul)	
-#define PIN_A9				 (20ul)	
+#define PIN_A0               (15ul)
+#define PIN_A1               (16ul)
+#define PIN_A2               (17ul)
+#define PIN_A3               (18ul)
+#define PIN_A4               (19ul)
+#define PIN_A5               (20ul)
+#define PIN_A6               (21ul)	
+#define PIN_A7               (22ul)
+#define PIN_A8               (23ul)	
+#define PIN_A9				 (24ul)	
+
+#define analogInputToDigitalPin(p)  ((p < PIN_A0) ? (p) + PIN_A0 : -1)
 
 static const uint8_t A0 = PIN_A0;
 static const uint8_t A1 = PIN_A1;
@@ -108,11 +110,17 @@ static const uint8_t A9 = PIN_A9;
  * Serial interfaces
  */
 
-// Serial (Broken out)
-#define PIN_SERIAL_RX       (24ul)
-#define PIN_SERIAL_TX       (25ul)
-#define PAD_SERIAL_TX       (UART_TX_PAD_2)
-#define PAD_SERIAL_RX       (SERCOM_RX_PAD_3)
+ // SerialPins (Broken out)
+#define PIN_SERIALPINS_RX       (13ul)
+#define PIN_SERIALPINS_TX       (14ul)
+#define PAD_SERIALPINS_TX       (UART_TX_PAD_2)
+#define PAD_SERIALPINS_RX       (SERCOM_RX_PAD_3)
+
+ // SerialJack (Headphone jack)
+#define PIN_SERIALJACK_RX       (25ul)
+#define PIN_SERIALJACK_TX       (26ul)
+#define PAD_SERIALJACK_TX       (UART_TX_PAD_2)
+#define PAD_SERIALJACK_RX       (SERCOM_RX_PAD_1)
 
 
 /*
@@ -120,9 +128,9 @@ static const uint8_t A9 = PIN_A9;
  */
 #define SPI_INTERFACES_COUNT 1
 
-#define PIN_SPI_MISO         (28u)
-#define PIN_SPI_MOSI         (29u)
-#define PIN_SPI_SCK          (30u)
+#define PIN_SPI_MISO         (30u)
+#define PIN_SPI_MOSI         (31u)
+#define PIN_SPI_SCK          (32u)
 #define PERIPH_SPI           sercom4
 #define PAD_SPI_TX           SPI_PAD_2_SCK_3
 #define PAD_SPI_RX           SERCOM_RX_PAD_0
@@ -137,8 +145,8 @@ static const uint8_t SCK  = PIN_SPI_SCK ;
  */
 #define WIRE_INTERFACES_COUNT 1
 
-#define PIN_WIRE_SDA         (26u)
-#define PIN_WIRE_SCL         (27u)
+#define PIN_WIRE_SDA         (11u)
+#define PIN_WIRE_SCL         (12u)
 #define PERIPH_WIRE          sercom3
 #define WIRE_IT_HANDLER      SERCOM3_Handler
 
@@ -148,9 +156,9 @@ static const uint8_t SCL = PIN_WIRE_SCL;
 /*
  * USB
  */
-#define PIN_USB_HOST_ENABLE (23ul)
-#define PIN_USB_DM          (21ul)
-#define PIN_USB_DP          (22ul)
+#define PIN_USB_DM          (27ul)
+#define PIN_USB_DP          (28ul)
+#define PIN_USB_HOST_ENABLE (29ul)
 
 #ifdef __cplusplus
 }
@@ -173,7 +181,10 @@ extern SERCOM sercom3;
 extern SERCOM sercom4;
 extern SERCOM sercom5;
 
-extern Uart Serial;
+extern Uart SerialPins;
+extern Uart SerialJack;
+
+#define Serial SerialUSB
 
 #endif
 
@@ -195,8 +206,8 @@ extern Uart Serial;
 #define SERIAL_PORT_USBVIRTUAL      SerialUSB
 #define SERIAL_PORT_MONITOR         SerialUSB
 
-#define SERIAL_PORT_HARDWARE        Serial
-#define SERIAL_PORT_HARDWARE_OPEN   Serial
+#define SERIAL_PORT_HARDWARE        SerialPin
+#define SERIAL_PORT_HARDWARE_OPEN   SerialPin
 
 #endif /* _VARIANT_ARDUINO_ZERO_ */
 

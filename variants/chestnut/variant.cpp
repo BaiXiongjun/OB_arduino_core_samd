@@ -29,8 +29,8 @@
  * | 7          |  PB08  | A1             | Motor2 sense		    | EIC/EXTINT[8] *ADC/AIN[2] PTC/Y[14] SERCOM4/PAD[0] TC4/WO[0]
  * | 8          |  PB09  | A2             | Motor3 sense	        | EIC/EXTINT[9] *ADC/AIN[3] PTC/Y[15] SERCOM4/PAD[1] TC4/WO[1]
  * | 9          |  PA04  | A3             | Motor4 sense            | EIC/EXTINT[4] *ADC/AIN[4] AC/AIN[0] PTC/Y[2] SERCOM0/PAD[0] TCC0/WO[0]
- * | 10         |  PA05  | A4             | EMG ADC 0  	            | EIC/EXTINT[5] *ADC/AIN[5] AC/AIN[1] PTC/Y[5] SERCOM0/PAD[1] TCC0/WO[1]
- * | 11         |  PA06  | A5	          | EMG ADC 1		 	    | EIC/EXTINT[6] *ADC/AIN[6] AC/AIN[2] PTC/Y[4] SERCOM0/PAD[2] TCC1/WO[0]
+ * | 10         |  PA05  | A4 (SerialJack)| EMG ADC 0  	(RX2)       | EIC/EXTINT[5] *ADC/AIN[5] AC/AIN[1] PTC/Y[5] SERCOM0/PAD[1] TCC0/WO[1]
+ * | 11         |  PA06  | A5 (SerialJack)| EMG ADC 1	(TX2)       | EIC/EXTINT[6] *ADC/AIN[6] AC/AIN[2] PTC/Y[4] SERCOM0/PAD[2] TCC1/WO[0]
  * | 12         | *PA07  | D0 (PWM)       | Motor4 PWM	            | EIC/EXTINT[7] DC/AIN[7] AC/AIN[3] PTC/Y[5] SERCOM0/PAD[3] *TCC1/WO[1]
  * | 13         | *PA08  | D1 (PWM)       | Motor1 PWM 	            | EIC/NMI ADC/AIN[16] PTC/X[0] SERCOM0/PAD[0] SERCOM2/PAD[0] TCC0/WO[0] *TCC1/WO[2]
  * | 14         | *PA09  | D2 (PWM)       | Motor1 PWM	            | EIC/EXTINT[9] ADC/AIN[17] PTC/X[1] SERCOM0/PAD[1] SERCOM2/PAD[1] TCC0/WO[1] *TCC1/WO[3]
@@ -56,8 +56,8 @@
  * | 34         |  PB25  | D- (USB)       | USB D-                  | EIC/EXTINT[13] SERCOM3/PAD[3] SERCOM5/PAD[3] TC5/WO[1] TCC1/WO[3] *USB/DP
  * | 35         |        | GND		      | Ground		            | *GND
  * | 36         |        | VDD            | Vdd					    | *VDD
- * | 37         |  PB22  | TX			  | Broken out  TX          | EIC/EXTINT[6] *SERCOM5/PAD[2]
- * | 38         |  PB23  | RX			  | Broken out  RX	        | EIC/EXTINT[7] *SERCOM5/PAD[3]
+ * | 37         |  PB22  | TX (SerialPin) | Broken out  TX          | EIC/EXTINT[6] *SERCOM5/PAD[2]
+ * | 38         |  PB23  | RX (SerialPin) | Broken out  RX	        | EIC/EXTINT[7] *SERCOM5/PAD[3]
  * | 39         |  PA27  | NC	          | NC	                    | EIC/EXTING[15]
  * | 40         |        | RESET          | Reset     	            | *RESET
  * | 41         |  PA28  | USB HOST EN    | NC	                    | EIC/EXTINT[8]
@@ -91,7 +91,15 @@ const PinDescription g_APinDescription[]=
 	{ PORTA, 20, PIO_TIMER_ALT, (PIN_ATTR_DIGITAL|PIN_ATTR_PWM|PIN_ATTR_TIMER_ALT), No_ADC_Channel, PWM0_CH6, TCC0_CH6, EXTERNAL_INT_4 },	// D9 - PA20, TCC0/WO[6]
 	{ PORTA, 21, PIO_DIGITAL, PIN_ATTR_DIGITAL, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_5 },									// D10 - PA21
 
-	// 11 - 20, ANALOGUE 
+	// 11 - 12, I2C
+	{ PORTA, 22, PIO_SERCOM, PIN_ATTR_DIGITAL, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_6 },									// SDA - SERCOM3/PAD[0]
+	{ PORTA, 23, PIO_SERCOM, PIN_ATTR_DIGITAL, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_7 },									// SCL - SERCOM3/PAD[1]
+
+	// 13 - 14, UART (SerialPins)																										
+	{ PORTB, 23, PIO_SERCOM_ALT, PIN_ATTR_NONE, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },								// RX - SERCOM5/PAD[3]
+	{ PORTB, 22, PIO_SERCOM_ALT, PIN_ATTR_NONE, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },								// TX - SERCOM5/PAD[2]
+
+	// 15 - 24, ANALOGUE 
 	{ PORTA,  2, PIO_ANALOG, PIN_ATTR_ANALOG, ADC_Channel0, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_2 },										// A0 - ADC/AIN[0]
 	{ PORTB,  8, PIO_ANALOG, PIN_ATTR_ANALOG, ADC_Channel2, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_8 }, 									// A1 - ADC/AIN[2]
 	{ PORTB,  9, PIO_ANALOG, PIN_ATTR_ANALOG, ADC_Channel3, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_9 }, 									// A2 - ADC/AIN[3]
@@ -103,25 +111,21 @@ const PinDescription g_APinDescription[]=
 	{ PORTB,  2, PIO_ANALOG, PIN_ATTR_ANALOG, ADC_Channel10, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_2 }, 									// A8 - ADC/AIN[10]
 	{ PORTB,  3, PIO_ANALOG, PIN_ATTR_ANALOG, ADC_Channel11, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE }, 								// A9 - ADC/AIN[11]
 
-	// 21 - 23, USB
+	// 25 - 26, UART (SerialJack)																											
+	{ PORTA, 5, PIO_SERCOM_ALT, PIN_ATTR_NONE, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },								// RX - SERCOM0/PAD[1]
+	{ PORTA, 6, PIO_SERCOM_ALT, PIN_ATTR_NONE, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },								// TX - SERCOM0/PAD[2]
+
+	// 27 - 29, USB
 	{ PORTA, 24, PIO_COM, PIN_ATTR_NONE, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },										// USB/DM
 	{ PORTA, 25, PIO_COM, PIN_ATTR_NONE, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },										// USB/DP
 	{ PORTA, 28, PIO_COM, PIN_ATTR_NONE, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },										// USB Host enable
 
-	// 24 - 25, UART																										
-	{ PORTB, 22, PIO_SERCOM_ALT, PIN_ATTR_NONE, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },								// TX - SERCOM5/PAD[2]
-	{ PORTB, 23, PIO_SERCOM_ALT, PIN_ATTR_NONE, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },								// RX - SERCOM5/PAD[3]
-
-	// 26 - 27, I2C
-	{ PORTA, 22, PIO_SERCOM, PIN_ATTR_DIGITAL, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_6 },									// SDA - SERCOM3/PAD[0]
-	{ PORTA, 23, PIO_SERCOM, PIN_ATTR_DIGITAL, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_7 },									// SCL - SERCOM3/PAD[1]
-
-	// 28 - 30, SPI
+	// 30 - 32, SPI
 	{ PORTA, 12, PIO_SERCOM_ALT, PIN_ATTR_DIGITAL, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_12 },								// MISO - SERCOM4/PAD[0]
 	{ PORTB, 10, PIO_SERCOM_ALT, PIN_ATTR_DIGITAL, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_10 },								// MOSI - SERCOM4/PAD[2]
 	{ PORTB, 11, PIO_SERCOM_ALT, PIN_ATTR_DIGITAL, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_11 },								// SCK - SERCOM4/PAD[3]
 
-	// 31, AREF
+	// 33, AREF
 	{ PORTA,  3, PIO_ANALOG, PIN_ATTR_ANALOG, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },								// AREF - DAC/VREFP
 
 } ;
@@ -136,9 +140,16 @@ SERCOM sercom3( SERCOM3 ) ;
 SERCOM sercom4( SERCOM4 ) ;
 SERCOM sercom5( SERCOM5 ) ;
 
-Uart Serial( &sercom5, PIN_SERIAL_RX, PIN_SERIAL_TX, PAD_SERIAL_RX, PAD_SERIAL_TX ) ;
+Uart SerialPins(&sercom5, PIN_SERIALPINS_RX, PIN_SERIALPINS_TX, PAD_SERIALPINS_RX, PAD_SERIALPINS_TX);		// Serial through broken out pins on Chestnut PCB
+Uart SerialJack(&sercom0, PIN_SERIALJACK_RX, PIN_SERIALJACK_TX, PAD_SERIALJACK_RX, PAD_SERIALJACK_TX);		// Serial through headphone Jack
+
 
 void SERCOM5_Handler()
 {
-  Serial.IrqHandler();
+	SerialPins.IrqHandler();
+}
+
+void SERCOM0_Handler()
+{
+	SerialJack.IrqHandler();
 }
