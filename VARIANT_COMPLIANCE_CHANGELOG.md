@@ -1,3 +1,8 @@
+openbionics-samd 1.2.13 29th March 2918
+* Updated core to ArduinoCore 1.6.20
+* Removed unused Arduino variants
+* Removed unused OB1_EMG variant
+
 openbionics-samd 1.2.12
 * reverted analogWrite() to using 8-bit timers (16-bit breaks PWM using TC timers)
 
@@ -13,14 +18,10 @@ openbionics-samd-dev 1.2.10
 openbionics-samd-dev 1.2.9
 * reverted all changes to 1.2.4
 
-
-
-
 openbionics-samd-dev 1.2.5
 * updated from ArduinoCore Samd
 
 openbionics-samd 1.2.4
-
 * added '#define Serial SerialUSB' to allow external libraries to use SerialUSB by default - Chestnut, OB1_HC & OB1_EMG
 * changed flash boards.txt 'board_name.build.ldscript=linker_scripts/gcc/flash_without_bootloader.ld' - OB1_HC & OB1_EMG
 * changed I2C pins to correct port (from PORTB to PORTA) - OB1_EMG
@@ -28,32 +29,26 @@ openbionics-samd 1.2.4
 * removed unused bootloaders from bootloaders folder
 
 openbionics-samd 1.2.3
-
 * added PWM functionality to LED on D4 (PB10) - OB1 EMG
 * changed PWM timer on PA19 to alternate timer (PA19) - OB1 HC
 
 openbionics-samd 1.2.2
-
 * fixed all compilation errors
 * removed Serial1() init functions
 * added placeholder USB_DP_PIN... for OB1_HC
 
 openbionics-samd 1.2.1
-
 * fixed board IDE's from OB1 to OB1_HC & OB1_EMG
 * fixed build.board=XXXX to correct names
 
 openbionics-samd 1.2.0
-
 * added OB1 EMG
 * changed OB1 board to OB1 Hand Controller
 * fixed Chestnut
 
 openbionics-samd 1.1.0
-
 * added OB1 board
 * changed Chesnut/Chesntut+ to Chestnut
 
 openbionics-samd 1.0.0
-
 * added Chestnut/Chestnut+ PCB

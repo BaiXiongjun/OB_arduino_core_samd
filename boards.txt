@@ -73,37 +73,6 @@ OB1_HC.build.pid=0xAA0B
 OB1_HC.bootloader.tool=openocd
 OB1_HC.bootloader.file=zero/samd21_sam_ba.bin
 
-# Open Bionics OB1 EMG
-# ---------------------------------------
-OB1_EMG.name=OB1 EMG
-OB1_EMG.vid.0=0x1209
-OB1_EMG.pid.0=0xAA0B
-
-
-OB1_EMG.upload.tool=bossac
-OB1_EMG.upload.protocol=sam-ba
-OB1_EMG.upload.maximum_size=262144
-OB1_EMG.upload.use_1200bps_touch=true
-OB1_EMG.upload.wait_for_upload_port=true
-OB1_EMG.upload.native_usb=true
-OB1_EMG.build.mcu=cortex-m0plus
-OB1_EMG.build.f_cpu=48000000L
-OB1_EMG.build.usb_product="OB1 EMG"
-OB1_EMG.build.usb_manufacturer="Open Bionics"
-OB1_EMG.build.board=SAMD_OB1_EMG
-OB1_EMG.build.core=arduino
-OB1_EMG.build.extra_flags=-D__SAMD21G18A__ {build.usb_flags}
-OB1_EMG.build.ldscript=linker_scripts/gcc/flash_without_bootloader.ld
-OB1_EMG.build.openocdscript=openocd_scripts/arduino_zero.cfg
-OB1_EMG.build.variant=ob1_emg
-OB1_EMG.build.variant_system_lib=
-OB1_EMG.build.vid=0x1209
-OB1_EMG.build.pid=0xAA0B
-OB1_EMG.bootloader.tool=openocd
-OB1_EMG.bootloader.file=zero/samd21_sam_ba.bin
-
-
-
 # Open Bionics OB1 Hand Controller Dev
 # ---------------------------------------
 OB1_HC_DEV.name=OB1 Hand Controller Dev
