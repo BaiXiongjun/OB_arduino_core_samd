@@ -135,7 +135,8 @@ uint32_t analogRead(uint32_t pin)
 
   pinPeripheral(pin, PIO_ANALOG);
 
-  if (pin == A0) { // Disable DAC, if analogWrite(A0,dval) used previously the DAC is enabled
+  // Disable DAC, if analogWrite() was used previously to enable the DAC
+  if ((g_APinDescription[pin].ulADCChannelNumber == ADC_Channel0) || (g_APinDescription[pin].ulADCChannelNumber == DAC_Channel0)) {
     syncDAC();
     DAC->CTRLA.bit.ENABLE = 0x00; // Disable DAC
     //DAC->CTRLB.bit.EOEN = 0x00; // The DAC output is turned off.
@@ -191,6 +192,16 @@ uint32_t analogRead(uint32_t pin)
 //	OllyEdit - if PWM timer was already enabled, the other pins that share the same
 // timer are not initialised correctly
 //
+
+
+
+// Wait for synchronization of registers between the clock domains
+static __inline__ void syncTC_8(Tc* TCx) __attribute__((always_inline, unused));
+static void syncTC_8(Tc* TCx)
+{
+	while (TCx->COUNT8.STATUS.bit.SYNCBUSY);
+}
+
 void analogWrite(uint32_t pin, uint32_t value)
 {
   PinDescription pinDesc = g_APinDescription[pin];
@@ -200,7 +211,7 @@ void analogWrite(uint32_t pin, uint32_t value)
   {
     // DAC handling code
 
-    if (pin != PIN_A0) { // Only 1 DAC on A0 (PA02)
+    if ((pinDesc.ulADCChannelNumber != ADC_Channel0) && (pinDesc.ulADCChannelNumber != DAC_Channel0)) { // Only 1 DAC on AIN0 / PA02
       return;
     }
 
@@ -232,20 +243,22 @@ void analogWrite(uint32_t pin, uint32_t value)
 	      // Compatibility for cores based on SAMD core <=1.6.2
 	      if (pinDesc.ulPinType == PIO_TIMER_ALT) {
 	        pinPeripheral(pin, PIO_TIMER_ALT);
-	
-	      } else
+				}
+				else
 	      #endif
 	      {
 	        pinPeripheral(pin, PIO_TIMER);
 	      }
-	
-	    } else {
+			}
+			else 
+			{
 	      // We suppose that attr has PIN_ATTR_TIMER_ALT bit set...
 	      pinPeripheral(pin, PIO_TIMER_ALT);
 	    }
 	}
 
-    if (!tcEnabled[tcNum]) {
+		if (!tcEnabled[tcNum])
+		{
       tcEnabled[tcNum] = true;
 
       uint16_t GCLK_CLKCTRL_IDs[] = {
@@ -266,42 +279,51 @@ void analogWrite(uint32_t pin, uint32_t value)
         // -- Configure TC
         Tc* TCx = (Tc*) GetTC(pinDesc.ulPWMChannel);
         // Disable TCx
-        TCx->COUNT16.CTRLA.bit.ENABLE = 0;
-        syncTC_16(TCx);
-        // Set Timer counter Mode to 16 bits, normal PWM
-        TCx->COUNT16.CTRLA.reg |= TC_CTRLA_MODE_COUNT16 | TC_CTRLA_WAVEGEN_NPWM;
-        syncTC_16(TCx);
+				TCx->COUNT8.CTRLA.bit.ENABLE = 0;
+				syncTC_8(TCx);
+				// Set Timer counter Mode to 8 bits, normal PWM, prescaler 1/256
+				TCx->COUNT8.CTRLA.reg |= TC_CTRLA_MODE_COUNT8 | TC_CTRLA_WAVEGEN_NPWM;
+				syncTC_8(TCx);
         // Set the initial value
-        TCx->COUNT16.CC[tcChannel].reg = (uint32_t) value;
-        syncTC_16(TCx);
+				TCx->COUNT8.CC[tcChannel].reg = (uint8_t)value;
+				syncTC_8(TCx);
+				// Set PER to maximum counter value (resolution : 0xFF)
+				TCx->COUNT8.PER.reg = 0xFF;
+				syncTC_8(TCx);
         // Enable TCx
-        TCx->COUNT16.CTRLA.bit.ENABLE = 1;
-        syncTC_16(TCx);
-      } else {
+				TCx->COUNT8.CTRLA.bit.ENABLE = 1;
+				syncTC_8(TCx);
+			}
+			else 
+			{
         // -- Configure TCC
         Tcc* TCCx = (Tcc*) GetTC(pinDesc.ulPWMChannel);
         // Disable TCCx
         TCCx->CTRLA.bit.ENABLE = 0;
         syncTCC(TCCx);
-        // Set TCCx as normal PWM
+				// Set TCx as normal PWM
         TCCx->WAVE.reg |= TCC_WAVE_WAVEGEN_NPWM;
         syncTCC(TCCx);
         // Set the initial value
         TCCx->CC[tcChannel].reg = (uint32_t) value;
         syncTCC(TCCx);
-        // Set PER to maximum counter value (resolution : 0xFFFF)
-        TCCx->PER.reg = 0xFFFF;
+				// Set PER to maximum counter value (resolution : 0xFF)
+				TCCx->PER.reg = 0xFF;
         syncTCC(TCCx);
         // Enable TCCx
         TCCx->CTRLA.bit.ENABLE = 1;
         syncTCC(TCCx);
       }
-    } else {
+		}
+		else
+		{
       if (tcNum >= TCC_INST_NUM) {
         Tc* TCx = (Tc*) GetTC(pinDesc.ulPWMChannel);
-        TCx->COUNT16.CC[tcChannel].reg = (uint32_t) value;
-        syncTC_16(TCx);
-      } else {
+				TCx->COUNT8.CC[tcChannel].reg = (uint8_t)value;
+				syncTC_8(TCx);
+			}
+			else 
+			{
         Tcc* TCCx = (Tcc*) GetTC(pinDesc.ulPWMChannel);
         TCCx->CTRLBSET.bit.LUPD = 1;
         syncTCC(TCCx);
@@ -319,7 +341,9 @@ void analogWrite(uint32_t pin, uint32_t value)
   value = mapResolution(value, _writeResolution, 8);
   if (value < 128) {
     digitalWrite(pin, LOW);
-  } else {
+	}
+	else 
+	{
     digitalWrite(pin, HIGH);
   }
 }

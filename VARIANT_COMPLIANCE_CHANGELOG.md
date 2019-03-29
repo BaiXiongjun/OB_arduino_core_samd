@@ -1,3 +1,6 @@
+openbionics-samd 1.2.12
+* reverted analogWrite() to using 8-bit timers (16-bit breaks PWM using TC timers)
+
 openbionics-samd 1.2.11
 * changed PID & VID to Open Bionics' in boards.txt & USBCore.cpp
 * added SerialJack & SerialPins to Chestnut variant

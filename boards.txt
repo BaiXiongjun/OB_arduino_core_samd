@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2015 Arduino LLC.  All right reserved.
+# Copyright (c) 2014-2017 Arduino LLC.  All right reserved.
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -102,3 +102,33 @@ OB1_EMG.build.pid=0xAA0B
 OB1_EMG.bootloader.tool=openocd
 OB1_EMG.bootloader.file=zero/samd21_sam_ba.bin
 
+
+
+# Open Bionics OB1 Hand Controller Dev
+# ---------------------------------------
+OB1_HC_DEV.name=OB1 Hand Controller Dev
+OB1_HC_DEV.vid.0=0x1209
+OB1_HC_DEV.pid.0=0xAA0B
+
+
+OB1_HC_DEV.upload.tool=bossac
+OB1_HC_DEV.upload.protocol=sam-ba
+OB1_HC_DEV.upload.maximum_size=262144
+OB1_HC_DEV.upload.use_1200bps_touch=true
+OB1_HC_DEV.upload.wait_for_upload_port=true
+OB1_HC_DEV.upload.native_usb=true
+OB1_HC_DEV.build.mcu=cortex-m0plus
+OB1_HC_DEV.build.f_cpu=48000000L
+OB1_HC_DEV.build.usb_product="OB1 Hand Controller - Dev"
+OB1_HC_DEV.build.usb_manufacturer="Open Bionics"
+OB1_HC_DEV.build.board=SAMD_OB1_HC
+OB1_HC_DEV.build.core=arduino
+OB1_HC_DEV.build.extra_flags=-D__SAMD21G18A__ {build.usb_flags}
+OB1_HC_DEV.build.ldscript=linker_scripts/gcc/flash_with_bootloader.ld
+OB1_HC_DEV.build.openocdscript=openocd_scripts/arduino_zero.cfg
+OB1_HC_DEV.build.variant=ob1_hand_controller_DEV
+OB1_HC_DEV.build.variant_system_lib=
+OB1_HC_DEV.build.vid=0x1209
+OB1_HC_DEV.build.pid=0xAA0B
+OB1_HC_DEV.bootloader.tool=openocd
+OB1_HC_DEV.bootloader.file=ob1/bootloader.bin
