@@ -52,8 +52,8 @@ const uint16_t STRING_LANGUAGE[2] = {
 };
 
 #ifndef USB_PRODUCT
-// If no product is provided, use USB IO Board
-#define USB_PRODUCT     "USB IO Board"
+// If no product is provided, use OB
+#define USB_PRODUCT     "Open Bionics Board"
 #endif
 
 const uint8_t STRING_PRODUCT[] = USB_PRODUCT;
@@ -65,7 +65,7 @@ const uint8_t STRING_PRODUCT[] = USB_PRODUCT;
 #  define USB_MANUFACTURER "Open Bionics"
 #elif !defined(USB_MANUFACTURER)
 // Fall through to unknown if no manufacturer name was provided in a macro
-#  define USB_MANUFACTURER "Unknown"
+#  define USB_MANUFACTURER "Open Bionics"
 #endif
 
 const uint8_t STRING_MANUFACTURER[] = USB_MANUFACTURER;
