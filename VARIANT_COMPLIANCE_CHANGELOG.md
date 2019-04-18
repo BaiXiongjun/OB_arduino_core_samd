@@ -1,4 +1,8 @@
-openbionics-samd 1.2.13 29th March 2918
+openbionics-samd 1.2.14 18th April 2019
+* Added 'OB1 Hand Controller - Shifted' with a flash origin offset of 0x2000
+* Removed unused 'OB1 Hand Controller - DEV'
+
+openbionics-samd 1.2.13 29th March 2019
 * Updated core to ArduinoCore 1.6.20
 * Removed unused Arduino variants
 * Removed unused OB1_EMG variant
