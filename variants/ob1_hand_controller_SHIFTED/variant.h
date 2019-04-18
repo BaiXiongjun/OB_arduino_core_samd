@@ -28,6 +28,9 @@
  *        Definitions
  *----------------------------------------------------------------------------*/
 
+/** Use internal osc to reduce boot-time (OB-958) */
+//#define CRYSTALLESS
+
 /** Frequency of the board main oscillator */
 #define VARIANT_MAINOSC		(32768ul)
 

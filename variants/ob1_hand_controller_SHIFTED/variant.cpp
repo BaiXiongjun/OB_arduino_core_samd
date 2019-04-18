@@ -65,8 +65,8 @@
 * | 42         |        | GND		     | Ground		           | *GND
 * | 43         |        | VDD            | Vdd				       | *VDD
 * | 44         |        | VDD            | Vdd   		           | *VDD
-* | 45         |  PA30  | SWCLK (SWD)	 | JTAG Programming        | EIC/EXTINT[10] SERCOM1/PAD[2] TCC!/WO[0] *SWCLK
-* | 46         |  PA31  | SWDIO (SWD)    | JTAG Programming        | EIC/EXTINT[11] SERCOM1/PAD[3] TCC1[WO[1] *SWDIO
+* | 45         |  PA30  | SWCLK (JTAG)   | JTAG Programming        | EIC/EXTINT[10] SERCOM1/PAD[2] TCC!/WO[0] *SWCLK
+* | 46         |  PA31  | SWDIO (JTAG)   | JTAG Programming        | EIC/EXTINT[11] SERCOM1/PAD[3] TCC1[WO[1] *SWDIO
 * | 47         |  PB02  | M3_ISENSE      | Motor3 current sense    | EIC/EXTINT[2] *ADC/AIN[10] PTC/Y[8] SERCOM5/PAD[0] 
 * | 48         |  PB03  | M2_ISENSE      | Motor2 current sense    | EIC/EXTINT[3] *ADC/AIN[11] PTC/Y[9] SERCOM5/PAD[1] 
 */
@@ -103,10 +103,6 @@ const PinDescription g_APinDescription[]=
 	{ PORTB, 23, PIO_EXTINT, (PIN_ATTR_DIGITAL | PIN_ATTR_EXTINT), No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_7 },				// D20 - PB23, EIC/EXTINT[7]
 	{ PORTA, 27, PIO_OUTPUT, PIN_ATTR_DIGITAL, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },								// D21 - PA27
 	{ PORTA, 28, PIO_OUTPUT, PIN_ATTR_DIGITAL, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },								// D22 - PA28
-
-																																			// 30 - 31, UART (Wrist connector, instead of I2C)
-	{ PORTA, 23, PIO_INPUT, PIN_ATTR_ANALOG, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },							// RX - SCL - SERCOM5/PAD[1]
-	{ PORTA, 22, PIO_INPUT, PIN_ATTR_ANALOG, No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },							// TX - SDA - SERCOM5/PAD[0]
 
 	// 23 - 27, ANALOGUE 
 	{ PORTA,  6, PIO_ANALOG, PIN_ATTR_ANALOG, ADC_Channel6, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_NONE },									// A0 - ADC/AIN[6]
