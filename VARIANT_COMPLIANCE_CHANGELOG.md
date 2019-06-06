@@ -1,3 +1,6 @@
+openbionics-samd 1.2.15 6th June 2019
+* Added __bootloader_ver_ptr to linker scripts 
+
 openbionics-samd 1.2.14 18th April 2019
 * Added 'OB1 Hand Controller - Shifted' with a flash origin offset of 0x2000
 * Removed unused 'OB1 Hand Controller - DEV'
