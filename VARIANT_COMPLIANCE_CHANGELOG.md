@@ -1,3 +1,6 @@
+openbionics-samd 1.2.17 6th June 2019
+* Added missing comma in package.json
+
 openbionics-samd 1.2.16 6th June 2019
 * Fixed packaging process (should all have been 'zip/dir/everything_else', instead of 'zip/everything_else')
 
