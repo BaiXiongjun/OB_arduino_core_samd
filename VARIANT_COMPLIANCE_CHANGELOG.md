@@ -1,3 +1,6 @@
+openbionics-samd 1.2.18 13th June 2019
+* Added __flash_origin to linker scripts
+
 openbionics-samd 1.2.17 6th June 2019
 * Added missing comma in package.json
 
