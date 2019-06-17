@@ -189,7 +189,7 @@ SECTIONS
 	PROVIDE(__stack = __StackTop);
 	
 	PROVIDE(__flash_origin = ORIGIN(FLASH));
-	PROVIDE(__bootloader_ver_ptr = ORIGIN(FLASH) - 16);
+	PROVIDE(__bootloader_ver_ptr = ORIGIN(FLASH));
 
 	__ram_end__ = ORIGIN(RAM) + LENGTH(RAM) -1 ;
 

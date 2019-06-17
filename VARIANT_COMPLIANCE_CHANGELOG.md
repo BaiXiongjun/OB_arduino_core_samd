@@ -1,3 +1,6 @@
+openbionics-samd 1.2.19 17th June 2019
+* Fixed __bootloader_ver_ptr for 'flash_without_bootloader' scripts. It should now '== 0', rather than '== 0 - 16'
+
 openbionics-samd 1.2.18 13th June 2019
 * Added __flash_origin to linker scripts
 
