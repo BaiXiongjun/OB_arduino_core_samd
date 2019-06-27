@@ -1,3 +1,6 @@
+openbionics-samd 1.2.20 27th June 2019
+* Fixed __bootloader_ver_ptr for 'flash_without_bootloader' for 'Shifted' by re-adding the '-16' offset
+
 openbionics-samd 1.2.19 17th June 2019
 * Fixed __bootloader_ver_ptr for 'flash_without_bootloader' scripts. It should now '== 0', rather than '== 0 - 16'
 
