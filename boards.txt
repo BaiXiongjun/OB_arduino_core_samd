@@ -71,7 +71,7 @@ OB1_HC.build.variant_system_lib=
 OB1_HC.build.vid=0x1209
 OB1_HC.build.pid=0xAA0B
 OB1_HC.bootloader.tool=openocd
-OB1_HC.bootloader.file=ob1/bootloader.bin
+OB1_HC.bootloader.file=ob1/HC_Bootloader.bin
 
 # Open Bionics OB1 Hand Controller - Shifted by 0x2000 to not overwrite the bootloader
 # ---------------------------------------
@@ -100,4 +100,4 @@ OB1_HC_SHIFT.build.variant_system_lib=
 OB1_HC_SHIFT.build.vid=0x1209
 OB1_HC_SHIFT.build.pid=0xAA0B
 OB1_HC_SHIFT.bootloader.tool=openocd
-OB1_HC_SHIFT.bootloader.file=ob1/bootloader.bin
+OB1_HC_SHIFT.bootloader.file=ob1/HC_Bootloader.bin

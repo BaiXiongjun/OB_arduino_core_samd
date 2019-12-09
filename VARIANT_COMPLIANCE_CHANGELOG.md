@@ -1,3 +1,6 @@
+openbionics-samd 1.2.21 9th December 2019
+* Added OB1 bootloader V3.0.5
+
 openbionics-samd 1.2.20 27th June 2019
 * Fixed __bootloader_ver_ptr for 'flash_without_bootloader' for 'Shifted' by re-adding the '-16' offset
 
