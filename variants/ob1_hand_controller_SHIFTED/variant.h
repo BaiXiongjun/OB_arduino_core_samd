@@ -107,20 +107,14 @@ static const uint8_t A4  = PIN_A4;
 #define PAD_SERIAL_RX       (SERCOM_RX_PAD_3)
 #define PAD_SERIAL_TX       (UART_TX_PAD_2)
 
- // Serial (On wrist connector, replaces I2C)
-#define PIN_SERIAL_WRIST_RX       (30ul)
-#define PIN_SERIAL_WRIST_TX       (31ul)
-#define PAD_SERIAL_WRIST_RX       (SERCOM_RX_PAD_1)
-#define PAD_SERIAL_WRIST_TX       (UART_TX_PAD_0)
-
 /*
  * SPI Interfaces
  */
 #define SPI_INTERFACES_COUNT 1
 
-#define PIN_SPI_MISO         (32u)
-#define PIN_SPI_MOSI         (33u)
-#define PIN_SPI_SCK          (34u)
+#define PIN_SPI_MISO         (30u)
+#define PIN_SPI_MOSI         (31u)
+#define PIN_SPI_SCK          (32u)
 #define PERIPH_SPI           sercom4
 #define PAD_SPI_TX           SPI_PAD_2_SCK_3
 #define PAD_SPI_RX           SERCOM_RX_PAD_0
@@ -135,8 +129,8 @@ static const uint8_t SCK  = PIN_SPI_SCK;
  */
 #define WIRE_INTERFACES_COUNT 1
 
-#define PIN_WIRE_SDA         (35u)
-#define PIN_WIRE_SCL         (36u)
+#define PIN_WIRE_SDA         (33u)
+#define PIN_WIRE_SCL         (34u)
 #define PERIPH_WIRE          sercom3
 #define WIRE_IT_HANDLER      SERCOM3_Handler
 
@@ -172,7 +166,6 @@ extern SERCOM sercom4;
 extern SERCOM sercom5;
 
 extern Uart Serial;				// Serial on programming pads
-extern Uart SerialWrist;		// Serial on wrist connector (replaces I2C)
 
 #endif
 
